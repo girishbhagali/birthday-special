@@ -26,7 +26,7 @@ export default function TextReveal({ text, className, delay = 0, once = true }: 
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 25,
         stiffness: 100,
       },
@@ -35,12 +35,13 @@ export default function TextReveal({ text, className, delay = 0, once = true }: 
       opacity: 0,
       y: 20,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 25,
         stiffness: 100,
       },
     },
   };
+
 
   return (
     <motion.div
