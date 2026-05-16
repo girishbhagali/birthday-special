@@ -3,138 +3,157 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
-import { Gift, Heart } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { Gift, Heart, RefreshCw, Star, Smile } from "lucide-react";
 import Section from "./Section";
-import PageNav from "./PageNav";
-import TextReveal from "./TextReveal";
 
 export default function SurpriseSection() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [stage, setStage] = useState(1); // 1: Box, 2: Reveal
 
   const handleOpen = () => {
-    setIsOpen(true);
-    // Sophisticated confetti burst
-    const duration = 5 * 1000;
-    const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-
-    function randomInRange(min: number, max: number) {
-      return Math.random() * (max - min) + min;
-    }
-
-    const interval: any = setInterval(function() {
-      const timeLeft = animationEnd - Date.now();
-
-      if (timeLeft <= 0) {
-        return clearInterval(interval);
-      }
-
-      const particleCount = 50 * (timeLeft / duration);
-      confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }, colors: ["#B76E79", "#FFB6C1"] });
-      confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, colors: ["#D4AF37", "#E6E6FA"] });
-    }, 250);
+    // Shake and burst
+    confetti({
+      particleCount: 150,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ["#B76E79", "#FFB6C1", "#E6E6FA", "#D4AF37"]
+    });
+    
+    setTimeout(() => {
+      setStage(2);
+    }, 800);
   };
 
   return (
-    <Section id="surprise" className="bg-transparent min-h-screen flex items-center justify-center py-32 px-6">
-      <div className="relative z-10 text-center w-full max-w-4xl">
+    <Section id="surprise" className="bg-transparent py-32 flex items-center justify-center min-h-screen">
+      <div className="max-w-4xl w-full text-center px-6">
         <AnimatePresence mode="wait">
-          {!isOpen ? (
+          {stage === 1 ? (
             <motion.div
-              key="gift-box"
+              key="box"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.1, filter: "blur(20px)" }}
-              transition={{ duration: 0.8 }}
+              exit={{ opacity: 0, scale: 1.1, rotate: [0, -5, 5, -5, 5, 0] }}
               className="flex flex-col items-center"
             >
-               <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mb-6 flex items-center gap-4"
-              >
-                <div className="w-10 h-[1px] bg-rose-gold/30" />
-                <span className="text-rose-gold tracking-[0.5em] uppercase text-xs font-semibold">The Final Surprise</span>
-                <div className="w-10 h-[1px] bg-rose-gold/30" />
-              </motion.div>
-              
-              <h2 className="text-5xl md:text-7xl font-serif text-foreground mb-16">
-                Ready for Your Gift?
-              </h2>
-              
+              <div className="mb-12">
+                <span className="text-rose-gold tracking-[0.6em] uppercase text-[10px] font-bold mb-4 block">The Grand Finale</span>
+                <h2 className="text-5xl md:text-7xl font-serif text-foreground mb-4 italic">Ready for Your Gift?</h2>
+                <p className="text-foreground/40 font-serif italic text-xl">"A little something special, just for you."</p>
+              </div>
+
               <motion.div
-                whileHover={{ scale: 1.05, rotate: [0, -2, 2, 0] }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95, rotate: [0, -2, 2, -2, 2, 0] }}
                 onClick={handleOpen}
-                className="cursor-pointer relative group"
+                className="relative cursor-pointer group"
               >
-                <div className="absolute inset-0 bg-rose-gold/20 rounded-full blur-3xl group-hover:bg-rose-gold/40 transition-all duration-700 animate-pulse" />
-                <div className="relative glass w-48 h-48 md:w-64 md:h-64 rounded-full flex items-center justify-center border-white/40 group-hover:border-rose-gold/60 transition-all duration-500 shadow-2xl">
-                  <Gift className="w-20 h-20 md:w-28 md:h-28 text-rose-gold group-hover:scale-110 transition-transform duration-500" />
-                  <div className="absolute -top-2 -right-2 bg-white p-3 rounded-full shadow-lg border border-rose-gold/10">
-                    <Heart className="w-6 h-6 text-soft-pink fill-soft-pink" />
-                  </div>
+                {/* Glowing Aura */}
+                <div className="absolute inset-[-40px] bg-rose-gold/10 blur-[60px] rounded-full animate-pulse-slow" />
+                
+                {/* The Gift Box */}
+                <div className="relative w-64 h-64 md:w-80 md:h-80 glass rounded-[3rem] border-rose-gold/20 flex items-center justify-center shadow-3xl overflow-hidden bg-white/20">
+                  <div className="absolute inset-0 bg-gradient-to-br from-rose-gold/5 to-transparent" />
+                  
+                  <motion.div
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                    className="relative z-10 flex flex-col items-center"
+                  >
+                    <Gift className="w-24 h-24 md:w-32 md:h-32 text-rose-gold mb-6 stroke-[1px]" />
+                    <span className="text-rose-gold font-bold tracking-[0.4em] uppercase text-[10px]">Tap to unwrap</span>
+                  </motion.div>
                 </div>
               </motion.div>
-              
-              <p className="mt-12 text-rose-gold/50 font-poppins text-xs tracking-[0.3em] uppercase animate-pulse">Click to unwrap</p>
             </motion.div>
           ) : (
             <motion.div
-              key="surprise-content"
+              key="reveal"
               initial={{ opacity: 0, y: 50, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              className="glass p-12 md:p-24 rounded-[4rem] border-white/40 shadow-3xl shadow-rose-gold/10 relative overflow-hidden"
+              transition={{ duration: 1.2, type: "spring" }}
+              className="relative"
             >
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-rose-gold via-soft-pink to-lavender" />
-              
-              <div className="relative z-10">
-                <motion.div 
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", damping: 12, delay: 0.5 }}
-                  className="mb-12 flex justify-center"
-                >
-                  <div className="p-5 bg-rose-gold/10 rounded-full">
-                    <Heart className="w-12 h-12 text-rose-gold fill-rose-gold" />
-                  </div>
-                </motion.div>
+              <div className="glass p-12 md:p-16 rounded-[3rem] border-rose-gold/20 shadow-3xl relative overflow-hidden">
+                {/* Background Sparkles */}
+                <div className="absolute inset-0 pointer-events-none opacity-20">
+                   {[...Array(15)].map((_, i) => (
+                     <motion.div
+                       key={i}
+                       animate={{ 
+                         opacity: [0.2, 0.6, 0.2],
+                         scale: [1, 1.2, 1]
+                       }}
+                       transition={{ 
+                         duration: 2 + Math.random() * 3, 
+                         repeat: Infinity,
+                         delay: Math.random() * 5
+                       }}
+                       className="absolute"
+                       style={{ 
+                         top: `${Math.random() * 100}%`, 
+                         left: `${Math.random() * 100}%` 
+                       }}
+                     >
+                       <Star className="w-3 h-3 text-rose-gold fill-current" />
+                     </motion.div>
+                   ))}
+                </div>
 
-                <h2 className="text-6xl md:text-9xl font-serif text-foreground mb-10 flex justify-center">
-                  <TextReveal text="Happy Birthday!" delay={0.8} />
-                </h2>
-                
-                <motion.p 
+                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 1.5, duration: 1.5 }}
-                  className="text-2xl md:text-4xl font-cormorant text-foreground/70 leading-relaxed mb-12 italic"
+                  transition={{ delay: 0.5 }}
+                  className="flex flex-col items-center"
                 >
-                  "You are the most beautiful part of my story. May your year be as radiant and wonderful as your heart."
-                </motion.p>
-
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 2.5, duration: 1 }}
-                  className="flex flex-col items-center gap-10"
-                >
-                  <div className="flex items-center gap-6">
-                    <div className="w-12 h-[1px] bg-rose-gold/30" />
-                    <span className="text-rose-gold font-semibold tracking-[0.4em] uppercase text-xs">
-                      Forever Yours, Always
-                    </span>
-                    <div className="w-12 h-[1px] bg-rose-gold/30" />
+                  <span className="text-rose-gold tracking-[0.5em] uppercase text-[10px] font-bold mb-6 block italic">Surprise!</span>
+                  <h2 className="text-5xl md:text-8xl font-serif mb-10 leading-tight">
+                    Your gift is <br/>
+                    <span className="text-gradient italic">ME!</span>
+                  </h2>
+                  
+                  {/* Couple Photo */}
+                  <motion.div 
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 1, duration: 1 }}
+                    className="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-rose-gold/20 p-2 shadow-2xl mb-12 overflow-hidden"
+                  >
+                    <div className="relative w-full h-full rounded-full overflow-hidden">
+                      <Image
+                        src="/me_gift.png"
+                        alt="Our Gift"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </motion.div>
+                  
+                  <div className="max-w-xl mx-auto space-y-6 mb-16">
+                    <p className="text-2xl md:text-3xl font-serif italic text-foreground/80 leading-relaxed">
+                      "I'm the only gift that eats your snacks and talks back... but I'm yours forever!"
+                    </p>
+                    <p className="text-xl md:text-2xl font-serif italic text-rose-gold leading-relaxed flex items-center justify-center gap-2">
+                      <Smile className="w-6 h-6" /> No exchange, no return, and definitely no warranty!
+                    </p>
                   </div>
-                  <PageNav href="/" label="Relive The Magic" />
+
+                  <div className="flex flex-col items-center gap-12">
+                    <div className="w-32 h-[1px] bg-rose-gold/20" />
+                    <Link href="/">
+                      <motion.button
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="group flex items-center gap-4 px-12 py-5 rounded-full glass border-rose-gold/20 text-rose-gold hover:border-rose-gold/40 transition-all duration-500"
+                      >
+                        <RefreshCw className="w-4 h-4 group-hover:rotate-180 transition-transform duration-700" />
+                        <span className="font-bold tracking-[0.3em] uppercase text-xs">Start Over</span>
+                      </motion.button>
+                    </Link>
+                  </div>
                 </motion.div>
               </div>
-
-              {/* Decorative Background Glows */}
-              <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-soft-pink/10 blur-[100px] rounded-full" />
-              <div className="absolute -top-20 -right-20 w-64 h-64 bg-lavender/10 blur-[100px] rounded-full" />
             </motion.div>
           )}
         </AnimatePresence>
@@ -142,4 +161,3 @@ export default function SurpriseSection() {
     </Section>
   );
 }
-

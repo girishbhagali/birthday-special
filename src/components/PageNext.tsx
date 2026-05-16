@@ -33,10 +33,14 @@ export default function PageNext() {
           <span className="text-rose-gold/50 text-[10px] uppercase tracking-[0.3em] font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-right">
             Next: {next.label}
           </span>
-          <div className="w-10 h-10 rounded-full glass flex items-center justify-center border-rose-gold/10 group-hover:border-rose-gold/30 transition-all duration-500">
-            <ArrowRight className="w-4 h-4 text-rose-gold group-hover:translate-x-0.5 transition-transform" />
+          <div className="w-12 h-12 rounded-full glass flex items-center justify-center border-rose-gold/10 group-hover:border-rose-gold/30 transition-all duration-500">
+            <ArrowRight className="w-5 h-5 text-rose-gold group-hover:translate-x-0.5 transition-transform" />
           </div>
+
+
+
         </motion.button>
+
       </Link>
     </AnimatePresence>
   );

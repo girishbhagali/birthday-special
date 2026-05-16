@@ -1,130 +1,146 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Heart, Stars, Sparkles, Moon } from "lucide-react";
+import React from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import Section from "./Section";
 import PageNav from "./PageNav";
-import TextReveal from "./TextReveal";
+import { Calendar, MapPin } from "lucide-react";
 
-const memories = [
+const chapters = [
   {
-    date: "The Beginning",
-    title: "First Meeting",
-    description: "The moment the world stood still. I knew then that my life was about to change forever.",
-    icon: <Heart className="w-8 h-8" />,
-    color: "from-rose-gold/20",
+    number: "01",
+    label: "The Beginning",
+    heading: "First Meeting",
+    date: "14 Feb 2024",
+    location: "Café Mocha, Pune",
+    memory: "I still remember the way you walked in, radiating such warmth. You were wearing that blue dress that matched your eyes perfectly. When you said 'Hi', I knew my life was about to change forever.",
+    image: "/photo1.jpg",
   },
   {
-    date: "The Spark",
-    title: "First Date",
-    description: "Laughter, nervous smiles, and the realization that I've found someone truly special.",
-    icon: <Stars className="w-8 h-8" />,
-    color: "from-soft-pink/20",
+    number: "02",
+    label: "Memories Forever",
+    heading: "First Date",
+    date: "25 Feb 2024",
+    location: "Sky Lounge",
+    memory: "Our first real date felt like a scene from a movie. We talked for hours until the restaurant closed. I remember feeling so light walking home, knowing I'd found someone truly special.",
+    image: "/photo2.jpg",
   },
   {
-    date: "The Confession",
-    title: "I Love You",
-    description: "Whispered under the stars, the three words that became my favorite song.",
-    icon: <Sparkles className="w-8 h-8" />,
-    color: "from-lavender/20",
+    number: "03",
+    label: "The Confession",
+    heading: "I Said I Love You",
+    date: "10 April 2024",
+    location: "Under the Stars",
+    memory: "I couldn't keep it in any longer. When I told you I loved you, and you smiled that specific smile, my heart skipped a beat. Your reaction was everything I'd ever hoped for.",
+    image: "/photo3.jpg",
   },
   {
-    date: "The Promise",
-    title: "Forever Begins",
-    description: "Every day since has been a celebration of us. And we're just getting started.",
-    icon: <Moon className="w-8 h-8" />,
-    color: "from-pastel-blue/20",
+    number: "04",
+    label: "The Promise",
+    heading: "Forever Begins",
+    date: "Every Day",
+    location: "With You",
+    memory: "You are my peace, my home, and my greatest adventure. I can't wait for all the years ahead, building a life together that's even more beautiful than our story so far.",
+    image: "/photo4.jpg",
   },
 ];
 
 export default function StorySection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-  });
-
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
-
   return (
-    <div ref={containerRef} className="h-[400vh] bg-transparent">
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-        {/* Header Content */}
-        <div className="absolute top-16 md:top-24 left-0 w-full px-10 md:px-20 z-20">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-4 mb-6"
-          >
-            <div className="w-12 h-[1px] bg-rose-gold" />
-            <span className="text-rose-gold tracking-[0.5em] uppercase text-[10px] md:text-xs font-semibold">
-              Chapters of Us
-            </span>
-          </motion.div>
-          <h2 className="text-5xl md:text-8xl font-serif text-foreground leading-tight">
-            Our Love <span className="text-gradient">Story</span>
-          </h2>
-        </div>
-
-
-        {/* Horizontal Scrolling Gallery */}
-        <motion.div style={{ x }} className="flex gap-12 px-10 md:px-32 items-center">
-          {memories.map((memory, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: index * 0.1 }}
-              className="min-w-[80vw] md:min-w-[45vw] h-[60vh] glass rounded-[3rem] p-12 flex flex-col justify-between group border-white/30 relative overflow-hidden"
-            >
-              <div className={`absolute inset-0 bg-gradient-to-br ${memory.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
-              
-              <div className="relative z-10">
-                <div className="mb-8 p-4 w-fit rounded-2xl bg-white/20 border border-white/40 text-rose-gold shadow-lg">
-                  {memory.icon}
-                </div>
-                <span className="text-rose-gold font-poppins text-sm tracking-[0.3em] uppercase mb-4 block font-medium">
-                  {memory.date}
-                </span>
-                <h3 className="text-4xl md:text-6xl font-serif mb-6 group-hover:tracking-tight transition-all duration-500">
-                  {memory.title}
-                </h3>
-              </div>
-
-              <div className="relative z-10">
-                <p className="text-foreground/70 font-cormorant text-2xl md:text-3xl leading-relaxed italic max-w-xl">
-                  "{memory.description}"
-                </p>
-                <div className="mt-8 flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-                  <div className="w-8 h-[1px] bg-rose-gold" />
-                  <span className="text-rose-gold text-xs uppercase tracking-[0.2em]">Memories Forever</span>
-                </div>
-              </div>
-
-              {/* Decorative Number */}
-              <span className="absolute top-10 right-10 text-8xl font-serif text-rose-gold/5 pointer-events-none group-hover:text-rose-gold/10 transition-colors">
-                0{index + 1}
-              </span>
-            </motion.div>
-          ))}
-          
-          {/* Final Call to Action Card */}
-          <motion.div className="min-w-[80vw] md:min-w-[45vw] h-[60vh] flex flex-col justify-center items-center text-center p-12">
-            <h3 className="text-4xl md:text-5xl font-serif mb-10">And many more <br/> beautiful chapters to come...</h3>
-            <PageNav href="/gallery" label="Step into the Gallery" />
-          </motion.div>
+    <div className="bg-transparent">
+      {/* Introduction */}
+      <Section className="h-screen flex flex-col justify-center items-center text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          <span className="text-rose-gold tracking-[0.6em] uppercase text-xs font-semibold mb-6 block">Our Story</span>
+          <h2 className="text-6xl md:text-9xl font-serif text-foreground mb-8">Chapters <br/><span className="text-gradient">of Us</span></h2>
+          <div className="w-[1px] h-20 bg-gradient-to-b from-rose-gold/40 to-transparent mx-auto" />
         </motion.div>
+      </Section>
 
-        {/* Progress Bar */}
-        <div className="absolute bottom-20 left-10 right-10 h-[2px] bg-rose-gold/10 overflow-hidden">
-          <motion.div
-            style={{ scaleX: scrollYProgress }}
-            className="w-full h-full bg-rose-gold origin-left"
-          />
-        </div>
-      </div>
+      {/* Chapters */}
+      {chapters.map((chapter, index) => (
+        <Section key={index} className="min-h-screen py-20 flex items-center justify-center relative overflow-hidden">
+          {/* Watermark */}
+          <span className="absolute left-10 top-1/2 -translate-y-1/2 text-[15rem] md:text-[25rem] font-serif text-rose-gold/5 pointer-events-none select-none z-0">
+            {chapter.number}
+          </span>
+
+          <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center relative z-10 w-full">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.2, delay: 0.2 }}
+              className="flex flex-col"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-10 h-[1px] bg-rose-gold" />
+                <span className="text-rose-gold tracking-[0.4em] uppercase text-[10px] md:text-xs font-bold">
+                  {chapter.label}
+                </span>
+              </div>
+
+              <h3 className="text-5xl md:text-8xl font-serif text-foreground mb-10 leading-tight">
+                {chapter.heading}
+              </h3>
+
+              <div className="flex flex-wrap gap-8 mb-10">
+                <div className="flex items-center gap-3 text-rose-gold/60">
+                  <Calendar className="w-4 h-4" />
+                  <span className="text-xs uppercase tracking-widest font-semibold">{chapter.date}</span>
+                </div>
+                <div className="flex items-center gap-3 text-rose-gold/60">
+                  <MapPin className="w-4 h-4" />
+                  <span className="text-xs uppercase tracking-widest font-semibold">{chapter.location}</span>
+                </div>
+              </div>
+
+              <p className="text-foreground/70 font-serif text-xl md:text-2xl italic leading-relaxed mb-12 max-w-xl">
+                "{chapter.memory}"
+              </p>
+
+              <div className="flex items-center gap-4">
+                <div className="px-6 py-2 rounded-full border border-rose-gold/20 text-rose-gold text-[10px] uppercase tracking-[0.3em] font-bold bg-rose-gold/5">
+                  Memories Forever
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50, scale: 0.9 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              transition={{ duration: 1.5 }}
+              className="hidden lg:block relative aspect-[4/5] rounded-[2rem] overflow-hidden glass p-4 border-rose-gold/10"
+            >
+              <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-2xl">
+                <Image
+                  src={chapter.image}
+                  alt={chapter.heading}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </motion.div>
+          </div>
+        </Section>
+      ))}
+
+      {/* Footer Navigation */}
+      <Section className="h-[50vh] flex flex-col justify-center items-center text-center">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="flex flex-col items-center gap-10"
+        >
+          <div className="w-20 h-[1px] bg-rose-gold/20" />
+          <h3 className="text-3xl md:text-5xl font-serif italic text-foreground/60 mb-6">Our journey is just beginning...</h3>
+          <PageNav href="/gallery" label="View Our Gallery" />
+        </motion.div>
+      </Section>
     </div>
   );
 }
-

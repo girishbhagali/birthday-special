@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Cormorant_Garamond, Poppins } from "next/font/google";
+import { Playfair_Display, Cormorant_Garamond, Poppins, Dancing_Script } from "next/font/google";
+
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import BackgroundEffects from "@/components/BackgroundEffects";
@@ -24,12 +25,18 @@ const poppins = Poppins({
   weight: ["300", "400", "500", "600"],
 });
 
+const dancingScript = Dancing_Script({
+  variable: "--font-dancing",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "Happy Birthday My Love | A Cinematic Journey",
   description: "A premium interactive love story and birthday celebration.",
 };
 
 export default function RootLayout({
+
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -37,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${playfair.variable} ${cormorant.variable} ${poppins.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${playfair.variable} ${cormorant.variable} ${poppins.variable} ${dancingScript.variable} font-sans antialiased bg-background text-foreground`}
       >
         <SmoothScroll>
           <BackgroundEffects />
@@ -46,10 +53,12 @@ export default function RootLayout({
           <PageNext />
           {children}
         </SmoothScroll>
+
       </body>
     </html>
   );
 }
+
 
 
 

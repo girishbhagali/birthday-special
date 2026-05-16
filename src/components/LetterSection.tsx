@@ -1,83 +1,104 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Section from "./Section";
 import PageNav from "./PageNav";
+import { Heart } from "lucide-react";
 
-const fullText = "My Dearest,\n\nEvery day with you is a gift I never expected, but always dreamed of. You have a way of making the simplest moments feel extraordinary. Your kindness, your laugh, and the way you see the world inspire me every single day. \n\nToday, I want to celebrate the incredible person you are. Thank you for being by my side. Here's to many more adventures together.\n\nForever Yours.";
+const fullText = `My dearest BABEEE,
+
+I still remember the first time I saw you — the way you lit up the room with just a smile. I had no idea then that you would become the most important person in my life.
+
+You have this way of making everyone around you feel seen and loved that makes every ordinary moment feel extraordinary. I have never met anyone who possesses such a pure and beautiful soul.
+
+This past year with you has been the greatest adventure of my life. The trips we took, the late nights talking about our dreams, the way you squeeze my hand when you're happy — I carry all of it with me everywhere I go.
+
+On your birthday, I want you to know: you are loved more deeply than words can ever say. You deserve every beautiful thing the world has to offer, and I will spend every day trying to give you just that.
+
+Forever yours,
+GIRISH`;
 
 export default function LetterSection() {
   const [displayText, setDisplayText] = useState("");
-  const [started, setStarted] = useState(false);
+  const [isDone, setIsDone] = useState(false);
 
   useEffect(() => {
-    // Start immediately on mount for better reliability
-    setStarted(true);
     let index = 0;
     const interval = setInterval(() => {
-      index++;
       setDisplayText(fullText.slice(0, index));
-      if (index >= fullText.length) {
+      index++;
+      if (index > fullText.length) {
         clearInterval(interval);
+        setIsDone(true);
       }
-    }, 40);
+    }, 30);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <Section id="letter" className="bg-transparent min-h-screen flex items-center justify-center py-32 px-6">
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-        className="max-w-4xl w-full glass p-12 md:p-24 rounded-[3rem] border-white/40 relative shadow-3xl shadow-rose-gold/10"
+        initial={{ opacity: 0, rotateX: -90, y: 100 }}
+        animate={{ opacity: 1, rotateX: 0, y: 0 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+        className="max-w-3xl w-full perspective-1000"
       >
-        {/* Decorative Stationery Elements */}
-        <div className="absolute top-12 left-12 w-16 h-16 border-t-2 border-l-2 border-rose-gold/30 rounded-tl-3xl" />
-        <div className="absolute bottom-12 right-12 w-16 h-16 border-b-2 border-r-2 border-rose-gold/30 rounded-br-3xl" />
-        
-        <div className="relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 1 }}
-            className="mb-12"
+        <div className="relative bg-[#fdfaf2] p-12 md:p-20 rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-[#e8e2d2] min-h-[80vh] flex flex-col items-center">
+          {/* Paper Texture Overlay */}
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/pinstriped-suit.png')]" />
+          
+          {/* Decorative Flourish / Wax Seal */}
+          <motion.div 
+            initial={{ scale: 0, rotate: -45 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ delay: 1.5, type: "spring" }}
+            className="mb-12 relative"
           >
-            <span className="text-rose-gold tracking-[0.5em] uppercase text-[10px] md:text-xs font-semibold mb-2 block">A Message From My Heart</span>
-            <div className="w-20 h-[1px] bg-rose-gold/40" />
+            <div className="w-16 h-16 bg-[#b33939] rounded-full flex items-center justify-center shadow-lg border-4 border-[#8e2e2e]">
+              <Heart className="text-white w-8 h-8 fill-current" />
+            </div>
+            <div className="absolute -inset-2 border border-[#b33939]/20 rounded-full animate-pulse" />
           </motion.div>
 
-          <div className="min-h-[300px] md:min-h-[400px]">
-            <p className="font-cormorant text-2xl md:text-4xl text-foreground leading-[1.6] whitespace-pre-wrap italic">
+          {/* Heading */}
+          <h2 className="font-cursive text-4xl md:text-6xl text-[#5d4037] mb-12 text-center tracking-wide">
+            A Letter From My Heart
+          </h2>
+
+          {/* Letter Body */}
+          <div className="w-full">
+            <p className="font-serif text-xl md:text-2xl text-[#4e342e]/90 leading-[1.8] whitespace-pre-wrap italic">
               {displayText}
-              {displayText.length < fullText.length && (
-                <motion.span 
+              {!isDone && (
+                <motion.span
                   animate={{ opacity: [1, 0] }}
-                  transition={{ duration: 0.8, repeat: Infinity }}
-                  className="inline-block w-[2px] h-8 md:h-10 bg-rose-gold ml-1 translate-y-2" 
+                  transition={{ duration: 0.5, repeat: Infinity }}
+                  className="inline-block w-[2px] h-6 bg-[#5d4037] ml-1 translate-y-1"
                 />
               )}
             </p>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={displayText.length >= fullText.length - 1 ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 1 }}
-            className="mt-20 flex justify-between items-end"
-          >
-            <div className="text-rose-gold/40 font-serif text-6xl">∞</div>
-            <PageNav href="/countdown" label="A Special Countdown" />
-          </motion.div>
+          {/* Signature Animation */}
+          <AnimatePresence>
+            {isDone && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+                className="mt-20 w-full flex flex-col items-center gap-12"
+              >
+                <div className="w-24 h-[1px] bg-[#5d4037]/20" />
+                <PageNav href="/countdown" label="The Countdown" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-        
-        {/* Background Texture/Shimmer */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+
+        {/* Decorative Shadow for Unfold Effect */}
+        <div className="absolute -bottom-10 left-[10%] right-[10%] h-10 bg-black/10 blur-2xl rounded-full -z-10" />
       </motion.div>
     </Section>
   );
 }
-
-
-

@@ -4,16 +4,16 @@
   --color-background: #F0F2F3; /* Pearl White */
   --color-foreground: #1A1A1A;
   
-  --color-lavender: #E6E6FA;
-  --color-soft-pink: #FFB6C1;
-  --color-pastel-blue: #AEC6CF;
   --color-rose-gold: #B76E79;
+  --color-soft-pink: #FFB6C1;
+  --color-lavender: #E6E6FA;
+  --color-pastel-blue: #AEC6CF;
   --color-luxury-gold: #D4AF37;
-  --color-midnight: #0F172A;
   
-  --font-playfair: var(--font-playfair);
-  --font-cormorant: var(--font-cormorant);
-  --font-poppins: var(--font-poppins);
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-poppins);
+  --font-cursive: var(--font-dancing);
+
   
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -39,32 +39,22 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-poppins), sans-serif;
+  font-family: var(--font-sans), sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, .font-serif {
-  font-family: var(--font-playfair), serif;
-}
-
-.font-cormorant {
-  font-family: var(--font-cormorant), serif;
+  font-family: var(--font-serif), serif;
+  letter-spacing: -0.01em;
 }
 
 .glass {
   background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow: 0 4px 24px 0 rgba(183, 110, 121, 0.05);
-}
-
-.glass-dark {
-  background: rgba(15, 23, 42, 0.5);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(183, 110, 121, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(183, 110, 121, 0.05);
 }
 
 .text-gradient {
@@ -72,7 +62,7 @@ h1, h2, h3, h4, .font-serif {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 200% auto;
-  animation: shimmer 8s ease infinite;
+  animation: shimmer 5s ease infinite;
 }
 
 .gold-leaf {
@@ -88,7 +78,7 @@ h1, h2, h3, h4, .font-serif {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 200% auto;
-  animation: shimmer 5s linear infinite;
+  animation: shimmer 3s linear infinite;
 }
 
 .noise-overlay {
@@ -102,7 +92,7 @@ h1, h2, h3, h4, .font-serif {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -113,3 +103,4 @@ h1, h2, h3, h4, .font-serif {
   background: #B76E79;
   border-radius: 10px;
 }
+

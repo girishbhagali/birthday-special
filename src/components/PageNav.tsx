@@ -28,6 +28,10 @@ export default function PageNav({ href, label }: PageNavProps) {
           {/* Subtle pulse background */}
           <div className="absolute inset-0 rounded-full bg-rose-gold/5 animate-pulse -z-10" />
         </motion.button>
+
+
+
+
       </Link>
     </div>
   );
