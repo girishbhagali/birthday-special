@@ -43,45 +43,58 @@ export default function LetterSection() {
 
   return (
     <Section id="letter" className="relative bg-black min-h-screen flex items-center justify-center py-32 px-6 overflow-hidden">
-      
-      {/* 1. Fullscreen Navy-Blue Video Background */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-70 pointer-events-none"
-      >
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4" />
-      </video>
 
-      {/* 2. Soft Vignette Overlay for Cinematic Haze & Contrast */}
-      <div 
+      {/* 1. Video wrapper — clips any browser-applied scale/zoom on the video */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
+        style={{ isolation: "isolate" }}
+      >
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute opacity-70"
+          style={{
+            /* Pin it to cover the full viewport without any movement */
+            top: "50%",
+            left: "50%",
+            minWidth: "100%",
+            minHeight: "100%",
+            width: "auto",
+            height: "auto",
+            transform: "translate(-50%, -50%)",
+            /* Kill every possible animation/transition vector */
+            transition: "none",
+            animation: "none",
+            willChange: "auto",          /* prevents GPU compositing zoom artifacts */
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            objectFit: "cover",
+          }}
+        >
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4" />
+        </video>
+      </div>
+
+      {/* 2. Soft Vignette Overlay — static, no motion */}
+      <div
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background: "radial-gradient(circle, transparent 20%, rgba(0,0,0,0.85) 100%)",
         }}
       />
 
-      {/* 3. Volumetric Lighting Rays */}
-      <div 
+      {/* 3. Volumetric Lighting Ray — static, no motion */}
+      <div
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background: "radial-gradient(circle at 15% 15%, rgba(227,242,253,0.06) 0%, transparent 50%)",
         }}
       />
 
-      {/* 4. Moving Atmospheric Haze / Fog */}
-      <motion.div
-        animate={{
-          x: ["-5%", "5%", "-5%"],
-          y: ["-5%", "5%", "-5%"],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+      {/* 4. Atmospheric Haze — static div, NO motion/animation (was causing zoom feel) */}
+      <div
         className="absolute inset-0 z-[1] pointer-events-none opacity-20"
         style={{
           background: "radial-gradient(circle at 50% 100%, rgba(40, 70, 130, 0.25) 0%, transparent 60%)",
@@ -89,16 +102,8 @@ export default function LetterSection() {
         }}
       />
 
-      {/* 5. Levitating Floating Fantasy Island Silhouette */}
-      <motion.div
-        animate={{
-          y: [0, -12, 0],
-        }}
-        transition={{
-          duration: 9,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+      {/* 5. Fantasy Island Silhouette — static, NO floating animation (was causing zoom feel) */}
+      <div
         className="absolute bottom-[-8%] left-1/2 -translate-x-1/2 w-[90vw] md:w-[65vw] max-w-[750px] aspect-[16/10] z-[1] opacity-75 pointer-events-none"
       >
         <svg viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -107,23 +112,23 @@ export default function LetterSection() {
               <stop offset="0%" stopColor="#2c5282" stopOpacity="0.35" />
               <stop offset="100%" stopColor="#000000" stopOpacity="0" />
             </radialGradient>
-            
+
             <linearGradient id="islandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#030712" />
               <stop offset="50%" stopColor="#0b1329" />
               <stop offset="100%" stopColor="#02040a" />
             </linearGradient>
-            
+
             <linearGradient id="crystalGrad" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#60a5fa" />
               <stop offset="50%" stopColor="#eff6ff" />
               <stop offset="100%" stopColor="#2563eb" />
             </linearGradient>
           </defs>
-          
+
           {/* Volumetric background glow */}
           <ellipse cx="400" cy="300" rx="350" ry="200" fill="url(#islandGlow)" />
-          
+
           {/* Main island rock terrain */}
           <path
             d="M 150 320 
@@ -142,7 +147,7 @@ export default function LetterSection() {
             stroke="rgba(255, 255, 255, 0.03)"
             strokeWidth="1.5"
           />
-          
+
           {/* Terrain Grass Layer */}
           <path
             d="M 140 320
@@ -156,21 +161,21 @@ export default function LetterSection() {
             fill="#050e20"
             stroke="rgba(255, 255, 255, 0.05)"
           />
-          
+
           {/* Hanging roots */}
           <path d="M 220 390 Q 210 420, 205 440" fill="none" stroke="#02040a" strokeWidth="2.5" opacity="0.8" />
           <path d="M 320 430 Q 315 460, 320 480" fill="none" stroke="#02040a" strokeWidth="3" opacity="0.8" />
           <path d="M 450 445 Q 455 475, 452 495" fill="none" stroke="#02040a" strokeWidth="3" opacity="0.8" />
           <path d="M 580 395 Q 590 425, 595 445" fill="none" stroke="#02040a" strokeWidth="2.5" opacity="0.8" />
-          
+
           {/* Glowing Crystals */}
           <polygon points="260,312 267,288 273,312" fill="url(#crystalGrad)" filter="drop-shadow(0 0 8px #3b82f6)" />
           <polygon points="490,310 500,278 508,310" fill="url(#crystalGrad)" filter="drop-shadow(0 0 12px #60a5fa)" />
           <polygon points="560,314 564,298 568,314" fill="url(#crystalGrad)" filter="drop-shadow(0 0 6px #3b82f6)" />
         </svg>
-      </motion.div>
+      </div>
 
-      {/* 6. Glowing Space Dust Particles */}
+      {/* 6. Glowing Space Dust Particles — kept, they move UP not zoom */}
       {mounted && (
         <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
           {[...Array(20)].map((_, i) => (
@@ -205,12 +210,10 @@ export default function LetterSection() {
         transition={{ duration: 1.5, ease: "easeOut" }}
         className="max-w-3xl w-full perspective-1000 z-10"
       >
-        <div className="relative bg-[#fdfaf2] p-12 md:p-20 rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#e8e2d2] min-h-[80vh] flex flex-col items-center">
-          {/* Paper Texture Overlay */}
-          <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/pinstriped-suit.png')]" />
-          
-          {/* Decorative Flourish / Wax Seal */}
-          <motion.div 
+        <div className="relative bg-transparent p-6 sm:p-12 md:p-16 min-h-[80vh] flex flex-col items-center">
+
+          {/* Decorative Wax Seal */}
+          <motion.div
             initial={{ scale: 0, rotate: -45 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: 1.5, type: "spring" }}
@@ -223,19 +226,19 @@ export default function LetterSection() {
           </motion.div>
 
           {/* Heading */}
-          <h2 className="font-cursive text-4xl md:text-6xl text-[#5d4037] mb-12 text-center tracking-wide">
+          <h2 className="font-cursive text-4xl md:text-6xl text-amber-100 mb-12 text-center tracking-wide drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
             A Letter From My Heart
           </h2>
 
           {/* Letter Body */}
           <div className="w-full">
-            <p className="font-serif text-xl md:text-2xl text-[#4e342e]/90 leading-[1.8] whitespace-pre-wrap italic">
+            <p className="font-serif text-xl md:text-2xl text-amber-50/95 leading-[1.8] whitespace-pre-wrap italic drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
               {displayText}
               {!isDone && (
                 <motion.span
                   animate={{ opacity: [1, 0] }}
                   transition={{ duration: 0.5, repeat: Infinity }}
-                  className="inline-block w-[2px] h-6 bg-[#5d4037] ml-1 translate-y-1"
+                  className="inline-block w-[2px] h-6 bg-amber-300 ml-1 translate-y-1"
                 />
               )}
             </p>
@@ -250,15 +253,12 @@ export default function LetterSection() {
                 transition={{ duration: 1 }}
                 className="mt-20 w-full flex flex-col items-center gap-12"
               >
-                <div className="w-24 h-[1px] bg-[#5d4037]/20" />
+                <div className="w-24 h-[1px] bg-white/20" />
                 <PageNav href="/countdown" label="The Countdown" />
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-
-        {/* Decorative Shadow for Unfold Effect */}
-        <div className="absolute -bottom-10 left-[10%] right-[10%] h-10 bg-black/30 blur-2xl rounded-full -z-10" />
       </motion.div>
     </Section>
   );

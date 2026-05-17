@@ -28,7 +28,7 @@ export default function PageNext() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 20 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="fixed top-10 right-10 z-[100] flex items-center gap-3 group"
+          className="fixed top-4 right-4 sm:top-10 sm:right-10 z-[100] flex items-center gap-3 group"
         >
           <span className="text-rose-gold/50 text-[10px] uppercase tracking-[0.3em] font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-right">
             Next: {next.label}

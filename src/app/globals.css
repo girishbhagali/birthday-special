@@ -1,33 +1,46 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #F0F2F3; /* Pearl White */
+  --color-background: #F0F2F3;
+  /* Pearl White */
   --color-foreground: #1A1A1A;
-  
+
   --color-rose-gold: #B76E79;
   --color-soft-pink: #FFB6C1;
   --color-lavender: #E6E6FA;
   --color-pastel-blue: #AEC6CF;
   --color-luxury-gold: #D4AF37;
-  
+
   --font-serif: var(--font-playfair);
   --font-sans: var(--font-poppins);
   --font-cursive: var(--font-dancing);
 
-  
+
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-shimmer: shimmer 3s infinite linear;
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 :root {
@@ -44,7 +57,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, .font-serif {
+h1,
+h2,
+h3,
+h4,
+.font-serif {
   font-family: var(--font-serif), serif;
   letter-spacing: -0.01em;
 }
@@ -66,15 +83,13 @@ h1, h2, h3, h4, .font-serif {
 }
 
 .gold-leaf {
-  background: linear-gradient(
-    45deg,
-    #D4AF37 0%,
-    #F7EF8A 20%,
-    #D4AF37 40%,
-    #F7EF8A 60%,
-    #D4AF37 80%,
-    #D4AF37 100%
-  );
+  background: linear-gradient(45deg,
+      #D4AF37 0%,
+      #F7EF8A 20%,
+      #D4AF37 40%,
+      #F7EF8A 60%,
+      #D4AF37 80%,
+      #D4AF37 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 200% auto;
@@ -84,7 +99,6 @@ h1, h2, h3, h4, .font-serif {
 .noise-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9999;
   pointer-events: none;
   opacity: 0.02;
   background-color: #000;
@@ -103,4 +117,3 @@ h1, h2, h3, h4, .font-serif {
   background: #B76E79;
   border-radius: 10px;
 }
-

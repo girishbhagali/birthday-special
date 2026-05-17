@@ -19,7 +19,7 @@ export default function SurpriseSection() {
       origin: { y: 0.6 },
       colors: ["#B76E79", "#FFB6C1", "#E6E6FA", "#D4AF37"]
     });
-    
+
     setTimeout(() => {
       setStage(2);
     }, 800);
@@ -51,11 +51,11 @@ export default function SurpriseSection() {
               >
                 {/* Glowing Aura */}
                 <div className="absolute inset-[-40px] bg-rose-gold/10 blur-[60px] rounded-full animate-pulse-slow" />
-                
+
                 {/* The Gift Box */}
                 <div className="relative w-64 h-64 md:w-80 md:h-80 glass rounded-[3rem] border-rose-gold/20 flex items-center justify-center shadow-3xl overflow-hidden bg-white/20">
                   <div className="absolute inset-0 bg-gradient-to-br from-rose-gold/5 to-transparent" />
-                  
+
                   <motion.div
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -78,27 +78,27 @@ export default function SurpriseSection() {
               <div className="glass p-12 md:p-16 rounded-[3rem] border-rose-gold/20 shadow-3xl relative overflow-hidden">
                 {/* Background Sparkles */}
                 <div className="absolute inset-0 pointer-events-none opacity-20">
-                   {[...Array(15)].map((_, i) => (
-                     <motion.div
-                       key={i}
-                       animate={{ 
-                         opacity: [0.2, 0.6, 0.2],
-                         scale: [1, 1.2, 1]
-                       }}
-                       transition={{ 
-                         duration: 2 + Math.random() * 3, 
-                         repeat: Infinity,
-                         delay: Math.random() * 5
-                       }}
-                       className="absolute"
-                       style={{ 
-                         top: `${Math.random() * 100}%`, 
-                         left: `${Math.random() * 100}%` 
-                       }}
-                     >
-                       <Star className="w-3 h-3 text-rose-gold fill-current" />
-                     </motion.div>
-                   ))}
+                  {[...Array(15)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      animate={{
+                        opacity: [0.2, 0.6, 0.2],
+                        scale: [1, 1.2, 1]
+                      }}
+                      transition={{
+                        duration: 2 + Math.random() * 3,
+                        repeat: Infinity,
+                        delay: Math.random() * 5
+                      }}
+                      className="absolute"
+                      style={{
+                        top: `${Math.random() * 100}%`,
+                        left: `${Math.random() * 100}%`
+                      }}
+                    >
+                      <Star className="w-3 h-3 text-rose-gold fill-current" />
+                    </motion.div>
+                  ))}
                 </div>
 
                 <motion.div
@@ -109,12 +109,11 @@ export default function SurpriseSection() {
                 >
                   <span className="text-rose-gold tracking-[0.5em] uppercase text-[10px] font-bold mb-6 block italic">Surprise!</span>
                   <h2 className="text-5xl md:text-8xl font-serif mb-10 leading-tight">
-                    Your gift is <br/>
+                    Your gift is <br />
                     <span className="text-gradient italic">ME!</span>
                   </h2>
-                  
                   {/* Couple Photo */}
-                  <motion.div 
+                  <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 1, duration: 1 }}
@@ -122,14 +121,14 @@ export default function SurpriseSection() {
                   >
                     <div className="relative w-full h-full rounded-full overflow-hidden">
                       <Image
-                        src="/me_gift.png"
+                        src="/me_gift.jpg"
                         alt="Our Gift"
                         fill
                         className="object-cover"
                       />
                     </div>
                   </motion.div>
-                  
+
                   <div className="max-w-xl mx-auto space-y-6 mb-16">
                     <p className="text-2xl md:text-3xl font-serif italic text-foreground/80 leading-relaxed">
                       "I'm the only gift that eats your snacks and talks back... but I'm yours forever!"

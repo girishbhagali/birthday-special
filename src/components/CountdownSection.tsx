@@ -18,7 +18,7 @@ export default function CountdownSection() {
     total: 1, // Start with something > 0
   });
   const [hasArrived, setHasArrived] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -70,9 +70,7 @@ export default function CountdownSection() {
     };
     frame();
 
-    if (audioRef.current) {
-      audioRef.current.play().catch(e => console.log("Audio play blocked", e));
-    }
+
   };
 
   const TimeUnit = ({ value, label }: { value: number; label: string }) => (
@@ -82,7 +80,7 @@ export default function CountdownSection() {
       className="flex flex-col items-center"
     >
       <div className="relative group">
-        <span className="text-7xl md:text-9xl font-serif text-rose-gold tracking-tighter drop-shadow-sm">
+        <span className="text-6xl sm:text-7xl md:text-9xl font-serif text-rose-gold tracking-tighter drop-shadow-sm">
           {value.toString().padStart(2, "0")}
         </span>
         <div className="absolute -bottom-2 left-0 right-0 h-[1px] bg-rose-gold/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
@@ -95,12 +93,7 @@ export default function CountdownSection() {
 
   return (
     <Section id="countdown" className="bg-transparent py-32 flex items-center justify-center min-h-screen">
-      <audio 
-        ref={audioRef} 
-        src="/song.mp3" 
-        loop 
-        onError={() => console.log("Audio file 'song.mp3' not found in public folder.")}
-      />
+
       
       <div className="max-w-5xl w-full text-center px-6">
 
@@ -128,7 +121,7 @@ export default function CountdownSection() {
                 </h2>
               </div>
 
-              <div className="flex flex-wrap justify-center gap-12 md:gap-20 mb-20">
+              <div className="flex flex-wrap justify-center gap-6 sm:gap-12 md:gap-20 mb-20">
                 <TimeUnit value={timeLeft.days} label="Days" />
                 <TimeUnit value={timeLeft.hours} label="Hours" />
                 <TimeUnit value={timeLeft.minutes} label="Minutes" />

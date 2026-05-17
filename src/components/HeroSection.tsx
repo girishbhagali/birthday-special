@@ -4,12 +4,9 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { Volume2, VolumeX } from "lucide-react";
 import Section from "./Section";
 
 export default function HeroSection() {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   const { scrollY } = useScroll();
   
   const bgY = useTransform(scrollY, [0, 500], [0, 100]);
@@ -19,16 +16,7 @@ export default function HeroSection() {
   const name = "PRIYANKA";
   const title = `Happy Birthday ${name}`;
 
-  const toggleMusic = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
+
 
   // Letter by letter animation variants
   const sentence: Variants = {
@@ -118,22 +106,35 @@ export default function HeroSection() {
           </span>
         </motion.div>
 
-        <motion.h1 
-          variants={sentence}
-          initial="hidden"
-          animate="visible"
-          className="text-5xl md:text-8xl lg:text-9xl font-serif text-foreground tracking-tighter leading-tight mb-12 flex flex-wrap justify-center gap-x-4 md:gap-x-8"
+        {/* 1. Animated Cursive Calligraphy: Happy Birthday */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.8, duration: 1.5, type: "spring" }}
+          className="mb-4"
         >
-          {title.split(" ").map((word, wordIndex) => (
-            <span key={wordIndex} className="whitespace-nowrap flex">
-              {word.split("").map((char, charIndex) => (
-                <motion.span key={charIndex} variants={letter} className="inline-block">
-                  {char}
-                </motion.span>
-              ))}
-            </span>
-          ))}
-        </motion.h1>
+          <span 
+            className="text-7xl md:text-9xl lg:text-[10rem] text-amber-100/95 font-normal drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)] block"
+            style={{ fontFamily: "'Great Vibes', cursive" }}
+          >
+            Happy Birthday
+          </span>
+        </motion.div>
+
+        {/* 2. Cinematic Luxury Name: PRIYANKA */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.8, duration: 1.5 }}
+          className="mb-14"
+        >
+          <h1 
+            className="text-6xl md:text-8xl lg:text-[7.5rem] text-white font-normal drop-shadow-[0_6px_24px_rgba(0,0,0,0.95)] block"
+            style={{ fontFamily: "'Great Vibes', cursive" }}
+          >
+            Priyanka
+          </h1>
+        </motion.div>
 
         <motion.p
           initial={{ opacity: 0 }}
@@ -161,26 +162,6 @@ export default function HeroSection() {
         </Link>
       </motion.div>
 
-      {/* Music Toggle */}
-      <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 4 }}
-        onClick={toggleMusic}
-        className="absolute bottom-10 right-10 z-50 p-4 rounded-full glass border-rose-gold/20 text-rose-gold hover:bg-rose-gold/10 transition-all duration-300 group"
-      >
-        {isPlaying ? (
-          <Volume2 className="w-5 h-5 group-hover:scale-110 transition-transform" />
-        ) : (
-          <VolumeX className="w-5 h-5 group-hover:scale-110 transition-transform" />
-        )}
-        <audio 
-          ref={audioRef} 
-          loop 
-          src="/song.mp3" 
-          onError={() => console.log("Audio file 'song.mp3' not found in public folder. Please add it to enable music.")}
-        />
-      </motion.button>
 
 
       {/* Scroll Indicator */}

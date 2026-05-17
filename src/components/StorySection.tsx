@@ -13,7 +13,7 @@ const chapters = [
     label: "The Beginning",
     heading: "First Meeting",
     date: "14 Feb 2024",
-    location: "Café Mocha, Pune",
+    location: "Café Mocha",
     memory: "I still remember the way you walked in, radiating such warmth. You were wearing that blue dress that matched your eyes perfectly. When you said 'Hi', I knew my life was about to change forever.",
     image: "/photo1.jpg",
   },
@@ -57,7 +57,7 @@ export default function StorySection() {
           transition={{ duration: 1 }}
         >
           <span className="text-rose-gold tracking-[0.6em] uppercase text-xs font-semibold mb-6 block">Our Story</span>
-          <h2 className="text-6xl md:text-9xl font-serif text-foreground mb-8">Chapters <br/><span className="text-gradient">of Us</span></h2>
+          <h2 className="text-6xl md:text-9xl font-serif text-foreground mb-8">Chapters <br /><span className="text-gradient">of Us</span></h2>
           <div className="w-[1px] h-20 bg-gradient-to-b from-rose-gold/40 to-transparent mx-auto" />
         </motion.div>
       </Section>
@@ -114,7 +114,7 @@ export default function StorySection() {
               initial={{ opacity: 0, x: 50, scale: 0.9 }}
               whileInView={{ opacity: 1, x: 0, scale: 1 }}
               transition={{ duration: 1.5 }}
-              className="hidden lg:block relative aspect-[4/5] rounded-[2rem] overflow-hidden glass p-4 border-rose-gold/10"
+              className="relative aspect-[4/5] md:aspect-[16/9] lg:aspect-[4/5] rounded-[2rem] overflow-hidden glass p-4 border-rose-gold/10 w-full max-w-lg mx-auto"
             >
               <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-2xl">
                 <Image

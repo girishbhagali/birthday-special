@@ -46,7 +46,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Great+Vibes&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body
         className={`${playfair.variable} ${cormorant.variable} ${poppins.variable} ${dancingScript.variable} font-sans antialiased bg-background text-foreground`}

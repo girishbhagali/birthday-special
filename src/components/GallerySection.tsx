@@ -71,7 +71,7 @@ function FadingVideo({ src, className, style }: FadingVideoProps) {
 
     const handleLoadedData = () => {
       video.style.opacity = "0";
-      video.play().catch(() => {});
+      video.play().catch(() => { });
       fadeTo(1);
     };
 
@@ -89,7 +89,7 @@ function FadingVideo({ src, className, style }: FadingVideoProps) {
       setTimeout(() => {
         if (!video) return;
         video.currentTime = 0;
-        video.play().catch(() => {});
+        video.play().catch(() => { });
         fadingOutRef.current = false;
         fadeTo(1);
       }, 100);
@@ -316,7 +316,7 @@ export default function GallerySection() {
                   backgroundColor: "rgba(255, 255, 255, 0.02)",
                   borderColor: "rgba(255, 255, 255, 0.12)",
                   borderRadius: isMobile ? "24px" : "40px",
-                  boxShadow: role === "center" 
+                  boxShadow: role === "center"
                     ? `0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255,255,255,0.15), 0 0 40px ${image.panel}15`
                     : "none",
                   transform: role === "center" ? "perspective(1000px) rotateX(10deg)" : "none",
@@ -331,8 +331,8 @@ export default function GallerySection() {
                 className="w-full h-full object-contain object-bottom select-none pointer-events-none"
                 draggable={false}
                 style={{
-                  filter: role === "center" 
-                    ? `drop-shadow(0 25px 30px rgba(0,0,0,0.22)) drop-shadow(0 0 20px ${image.panel}20)` 
+                  filter: role === "center"
+                    ? `drop-shadow(0 25px 30px rgba(0,0,0,0.22)) drop-shadow(0 0 20px ${image.panel}20)`
                     : "none",
                   transition: "filter 650ms cubic-bezier(0.4, 0, 0.2, 1)",
                 }}
