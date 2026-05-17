@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
@@ -11,68 +11,28 @@ interface CarouselImage {
   panel: string;
 }
 
-interface ModeData {
-  label: string;
-  ghostText: string;
-  title: string;
-  description: string;
-  discoverText: string;
-  discoverLink: string;
-  images: CarouselImage[];
-}
-
-const TOONHUB_DATA: ModeData = {
-  label: "TOONHUB",
-  ghostText: "3D SHAPE",
-  title: "TOONHUB FIGURINES",
-  description: "The artwork is stunning, shipped fully prepared. The finish is a vision, the 3D craft is flawless. Many thanks! Wishing you the win. Order now.",
-  discoverText: "DISCOVER IT",
-  discoverLink: "https://fifth-gentle-45902158.figma.site/",
-  images: [
-    { src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/1.02464a56.png', bg: '#F4845F', panel: '#F79B7F' },
-    { src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/2.b977faab.png', bg: '#6BBF7A', panel: '#85CC92' },
-    { src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/3.4df853b4.png', bg: '#E882B4', panel: '#ED9DC4' },
-    { src: 'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/4.4457fbce.png', bg: '#6EB5FF', panel: '#8DC4FF' },
-  ]
-};
-
-const COUPLE_DATA: ModeData = {
-  label: "LOVE MUSEUM",
-  ghostText: "PRIYANKA",
-  title: "OUR MEMORIES",
-  description: "Every single moment we spend together becomes a beautiful frame frozen in time. Capturing the smiles, the promises, and the endless adventures we walk hand-in-hand. Happy birthday my love!",
-  discoverText: "READ MY LETTER",
-  discoverLink: "/letter",
-  images: [
-    { src: '/couple1.png', bg: '#F4845F', panel: '#F79B7F' },
-    { src: '/couple2.png', bg: '#6BBF7A', panel: '#85CC92' },
-    { src: '/couple3.png', bg: '#E882B4', panel: '#ED9DC4' },
-    { src: '/couple4.png', bg: '#6EB5FF', panel: '#8DC4FF' },
-  ]
-};
+const COUPLE_IMAGES: CarouselImage[] = [
+  { src: '/couple1.png', bg: '#F4845F', panel: '#F79B7F' },
+  { src: '/couple2.png', bg: '#6BBF7A', panel: '#85CC92' },
+  { src: '/couple3.png', bg: '#E882B4', panel: '#ED9DC4' },
+  { src: '/couple4.png', bg: '#6EB5FF', panel: '#8DC4FF' },
+];
 
 export default function GallerySection() {
-  const [mode, setMode] = useState<"toonhub" | "couple">("couple");
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isLinkHovered, setIsLinkHovered] = useState(false);
 
-  const currentData = mode === "toonhub" ? TOONHUB_DATA : COUPLE_DATA;
-
-  // Preload all images on mount
+  // Preload all couple cutout images on mount
   useEffect(() => {
-    const urlsToPreload = [
-      ...TOONHUB_DATA.images.map(img => img.src),
-      ...COUPLE_DATA.images.map(img => img.src)
-    ];
-    urlsToPreload.forEach(src => {
+    COUPLE_IMAGES.forEach(imgData => {
       const img = new window.Image();
-      img.src = src;
+      img.src = imgData.src;
     });
   }, []);
 
-  // Window resize handler
+  // Window resize handler for responsive positioning
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 640);
@@ -96,7 +56,7 @@ export default function GallerySection() {
     }, 650);
   };
 
-  // Roles determination
+  // Roles determination based on active index
   const getRole = (index: number) => {
     if (index === activeIndex) return "center";
     if (index === (activeIndex + 3) % 4) return "left";
@@ -168,7 +128,7 @@ export default function GallerySection() {
     <div
       className="relative w-full overflow-hidden"
       style={{
-        backgroundColor: currentData.images[activeIndex].bg,
+        backgroundColor: COUPLE_IMAGES[activeIndex].bg,
         transition: "background-color 650ms cubic-bezier(0.4, 0, 0.2, 1)",
         fontFamily: "'Inter', sans-serif",
       }}
@@ -190,62 +150,34 @@ export default function GallerySection() {
           style={{ top: "18%" }}
         >
           <span
-            className="text-white opacity-[0.25] uppercase tracking-tighter leading-none whitespace-nowrap transition-all duration-[650ms]"
+            className="text-white opacity-[0.25] uppercase tracking-tighter leading-none whitespace-nowrap"
             style={{
               fontFamily: "'Anton', sans-serif",
               fontSize: "clamp(90px, 28vw, 380px)",
               fontWeight: 900,
             }}
           >
-            {currentData.ghostText}
+            PRIYANKA
           </span>
         </div>
 
         {/* 3. Top-left brand label */}
         <div className="absolute top-6 left-4 sm:left-8 z-[60]">
           <span
-            className="text-xs font-semibold uppercase text-white tracking-[0.18em] opacity-90 transition-opacity duration-300"
+            className="text-xs font-semibold uppercase text-white tracking-[0.18em] opacity-90"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            {currentData.label}
+            LOVE MUSEUM
           </span>
-        </div>
-
-        {/* Sleek Interactive Mode Toggle (Middle-Top) */}
-        <div className="absolute top-5 left-1/2 -translate-x-1/2 z-[70] flex items-center justify-center">
-          <div className="bg-black/20 backdrop-blur-md px-1.5 py-1.5 rounded-full flex items-center gap-1 border border-white/10 shadow-xl">
-            <button
-              onClick={() => { setMode("couple"); setActiveIndex(0); }}
-              className={`px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
-                mode === "couple"
-                  ? "bg-white text-black shadow-md scale-100"
-                  : "text-white/70 hover:text-white hover:bg-white/5"
-              }`}
-              style={{ fontFamily: "'Inter', sans-serif" }}
-            >
-              Couple Mode
-            </button>
-            <button
-              onClick={() => { setMode("toonhub"); setActiveIndex(0); }}
-              className={`px-4 py-1.5 rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
-                mode === "toonhub"
-                  ? "bg-white text-black shadow-md scale-100"
-                  : "text-white/70 hover:text-white hover:bg-white/5"
-              }`}
-              style={{ fontFamily: "'Inter', sans-serif" }}
-            >
-              ToonHub Mode
-            </button>
-          </div>
         </div>
 
         {/* 4. Carousel */}
         <div className="absolute inset-0 z-[3]">
-          {currentData.images.map((image, index) => {
+          {COUPLE_IMAGES.map((image, index) => {
             const role = getRole(index);
             return (
               <div
-                key={`${mode}-${index}`}
+                key={index}
                 style={getItemStyle(index)}
                 className="group/item select-none"
               >
@@ -263,7 +195,7 @@ export default function GallerySection() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={image.src}
-                  alt={`Figurine ${index}`}
+                  alt={`Couple Memory ${index}`}
                   className="w-full h-full object-contain object-bottom select-none pointer-events-none"
                   draggable={false}
                   style={{
@@ -283,21 +215,21 @@ export default function GallerySection() {
         >
           <div>
             <h3
-              className="text-white font-bold uppercase tracking-widest text-lg sm:text-[22px] mb-2 sm:mb-3 leading-tight transition-all duration-300"
+              className="text-white font-bold uppercase tracking-widest text-lg sm:text-[22px] mb-2 sm:mb-3 leading-tight"
               style={{
                 fontFamily: "'Inter', sans-serif",
                 letterSpacing: "0.02em",
               }}
             >
-              {currentData.title}
+              OUR MEMORIES
             </h3>
             <p
-              className="hidden sm:block text-xs sm:text-sm text-white/80 leading-relaxed font-normal transition-all duration-300"
+              className="hidden sm:block text-xs sm:text-sm text-white/80 leading-relaxed font-normal"
               style={{
                 fontFamily: "'Inter', sans-serif",
               }}
             >
-              {currentData.description}
+              Every single moment we spend together becomes a beautiful frame frozen in time. Capturing the smiles, the promises, and the endless adventures we walk hand-in-hand. Happy birthday my love!
             </p>
           </div>
 
@@ -320,55 +252,28 @@ export default function GallerySection() {
 
         {/* 6. Bottom-right link */}
         <div className="absolute bottom-6 right-4 sm:bottom-20 sm:right-10 z-[60]">
-          {mode === "couple" ? (
-            <Link
-              href={currentData.discoverLink}
-              className="flex items-center gap-3 text-white uppercase no-underline transition-all duration-200 select-none cursor-pointer"
+          <Link
+            href="/letter"
+            className="flex items-center gap-3 text-white uppercase no-underline transition-all duration-200 select-none cursor-pointer"
+            style={{
+              fontFamily: "'Anton', sans-serif",
+              opacity: isLinkHovered ? 1 : 0.9,
+              transform: isLinkHovered ? "translateY(-2px)" : "translateY(0)",
+            }}
+            onMouseEnter={() => setIsLinkHovered(true)}
+            onMouseLeave={() => setIsLinkHovered(false)}
+          >
+            <span
               style={{
-                fontFamily: "'Anton', sans-serif",
-                opacity: isLinkHovered ? 1 : 0.9,
-                transform: isLinkHovered ? "translateY(-2px)" : "translateY(0)",
+                fontSize: "clamp(20px, 4vw, 56px)",
+                letterSpacing: "-0.02em",
+                lineHeight: 1,
               }}
-              onMouseEnter={() => setIsLinkHovered(true)}
-              onMouseLeave={() => setIsLinkHovered(false)}
             >
-              <span
-                style={{
-                  fontSize: "clamp(20px, 4vw, 56px)",
-                  letterSpacing: "-0.02em",
-                  lineHeight: 1,
-                }}
-              >
-                {currentData.discoverText}
-              </span>
-              <ArrowRight className="w-6 h-6 sm:w-10 sm:h-10 transition-transform duration-300" style={{ transform: isLinkHovered ? "translateX(6px)" : "translateX(0)" }} strokeWidth={2.25} />
-            </Link>
-          ) : (
-            <a
-              href={currentData.discoverLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 text-white uppercase no-underline transition-all duration-200 select-none cursor-pointer"
-              style={{
-                fontFamily: "'Anton', sans-serif",
-                opacity: isLinkHovered ? 1 : 0.9,
-                transform: isLinkHovered ? "translateY(-2px)" : "translateY(0)",
-              }}
-              onMouseEnter={() => setIsLinkHovered(true)}
-              onMouseLeave={() => setIsLinkHovered(false)}
-            >
-              <span
-                style={{
-                  fontSize: "clamp(20px, 4vw, 56px)",
-                  letterSpacing: "-0.02em",
-                  lineHeight: 1,
-                }}
-              >
-                {currentData.discoverText}
-              </span>
-              <ArrowRight className="w-6 h-6 sm:w-10 sm:h-10 transition-transform duration-300" style={{ transform: isLinkHovered ? "translateX(6px)" : "translateX(0)" }} strokeWidth={2.25} />
-            </a>
-          )}
+              READ MY LETTER
+            </span>
+            <ArrowRight className="w-6 h-6 sm:w-10 sm:h-10 transition-transform duration-300" style={{ transform: isLinkHovered ? "translateX(6px)" : "translateX(0)" }} strokeWidth={2.25} />
+          </Link>
         </div>
       </div>
     </div>
