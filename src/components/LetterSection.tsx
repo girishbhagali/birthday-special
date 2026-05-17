@@ -22,6 +22,11 @@ GIRISH`;
 export default function LetterSection() {
   const [displayText, setDisplayText] = useState("");
   const [isDone, setIsDone] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     let index = 0;
@@ -37,14 +42,170 @@ export default function LetterSection() {
   }, []);
 
   return (
-    <Section id="letter" className="bg-transparent min-h-screen flex items-center justify-center py-32 px-6">
+    <Section id="letter" className="relative bg-black min-h-screen flex items-center justify-center py-32 px-6 overflow-hidden">
+      
+      {/* 1. Fullscreen Navy-Blue Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-70 pointer-events-none"
+      >
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4" />
+      </video>
+
+      {/* 2. Soft Vignette Overlay for Cinematic Haze & Contrast */}
+      <div 
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, transparent 20%, rgba(0,0,0,0.85) 100%)",
+        }}
+      />
+
+      {/* 3. Volumetric Lighting Rays */}
+      <div 
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background: "radial-gradient(circle at 15% 15%, rgba(227,242,253,0.06) 0%, transparent 50%)",
+        }}
+      />
+
+      {/* 4. Moving Atmospheric Haze / Fog */}
+      <motion.div
+        animate={{
+          x: ["-5%", "5%", "-5%"],
+          y: ["-5%", "5%", "-5%"],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute inset-0 z-[1] pointer-events-none opacity-20"
+        style={{
+          background: "radial-gradient(circle at 50% 100%, rgba(40, 70, 130, 0.25) 0%, transparent 60%)",
+          filter: "blur(60px)",
+        }}
+      />
+
+      {/* 5. Levitating Floating Fantasy Island Silhouette */}
+      <motion.div
+        animate={{
+          y: [0, -12, 0],
+        }}
+        transition={{
+          duration: 9,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute bottom-[-8%] left-1/2 -translate-x-1/2 w-[90vw] md:w-[65vw] max-w-[750px] aspect-[16/10] z-[1] opacity-75 pointer-events-none"
+      >
+        <svg viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+          <defs>
+            <radialGradient id="islandGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#2c5282" stopOpacity="0.35" />
+              <stop offset="100%" stopColor="#000000" stopOpacity="0" />
+            </radialGradient>
+            
+            <linearGradient id="islandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#030712" />
+              <stop offset="50%" stopColor="#0b1329" />
+              <stop offset="100%" stopColor="#02040a" />
+            </linearGradient>
+            
+            <linearGradient id="crystalGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#60a5fa" />
+              <stop offset="50%" stopColor="#eff6ff" />
+              <stop offset="100%" stopColor="#2563eb" />
+            </linearGradient>
+          </defs>
+          
+          {/* Volumetric background glow */}
+          <ellipse cx="400" cy="300" rx="350" ry="200" fill="url(#islandGlow)" />
+          
+          {/* Main island rock terrain */}
+          <path
+            d="M 150 320 
+               C 180 325, 220 330, 260 328
+               C 300 325, 340 332, 400 330
+               C 460 328, 520 335, 580 325
+               C 620 318, 640 322, 670 320
+               C 680 330, 690 345, 680 355
+               C 670 365, 640 380, 620 395
+               C 590 415, 550 435, 500 450
+               C 450 465, 410 470, 390 470
+               C 360 470, 310 460, 270 440
+               C 220 415, 170 390, 140 370
+               C 120 355, 130 335, 150 320 Z"
+            fill="url(#islandGrad)"
+            stroke="rgba(255, 255, 255, 0.03)"
+            strokeWidth="1.5"
+          />
+          
+          {/* Terrain Grass Layer */}
+          <path
+            d="M 140 320
+               C 180 310, 240 315, 290 312
+               C 340 308, 410 316, 480 310
+               C 550 305, 620 315, 680 320
+               C 675 328, 665 330, 650 330
+               C 600 330, 520 325, 460 328
+               C 390 332, 310 328, 240 330
+               C 180 332, 150 328, 140 320 Z"
+            fill="#050e20"
+            stroke="rgba(255, 255, 255, 0.05)"
+          />
+          
+          {/* Hanging roots */}
+          <path d="M 220 390 Q 210 420, 205 440" fill="none" stroke="#02040a" strokeWidth="2.5" opacity="0.8" />
+          <path d="M 320 430 Q 315 460, 320 480" fill="none" stroke="#02040a" strokeWidth="3" opacity="0.8" />
+          <path d="M 450 445 Q 455 475, 452 495" fill="none" stroke="#02040a" strokeWidth="3" opacity="0.8" />
+          <path d="M 580 395 Q 590 425, 595 445" fill="none" stroke="#02040a" strokeWidth="2.5" opacity="0.8" />
+          
+          {/* Glowing Crystals */}
+          <polygon points="260,312 267,288 273,312" fill="url(#crystalGrad)" filter="drop-shadow(0 0 8px #3b82f6)" />
+          <polygon points="490,310 500,278 508,310" fill="url(#crystalGrad)" filter="drop-shadow(0 0 12px #60a5fa)" />
+          <polygon points="560,314 564,298 568,314" fill="url(#crystalGrad)" filter="drop-shadow(0 0 6px #3b82f6)" />
+        </svg>
+      </motion.div>
+
+      {/* 6. Glowing Space Dust Particles */}
+      {mounted && (
+        <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                scale: Math.random() * 0.4 + 0.3,
+                opacity: Math.random() * 0.15 + 0.05,
+              }}
+              animate={{
+                y: [-15, -80, -15],
+                x: [0, Math.random() * 20 - 10, 0],
+                opacity: [0.05, 0.3, 0.05],
+              }}
+              transition={{
+                duration: 12 + Math.random() * 10,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute w-1.5 h-1.5 rounded-full bg-blue-400/50 blur-[1px]"
+            />
+          ))}
+        </div>
+      )}
+
+      {/* 7. Foreground Content Card */}
       <motion.div
         initial={{ opacity: 0, rotateX: -90, y: 100 }}
         animate={{ opacity: 1, rotateX: 0, y: 0 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
-        className="max-w-3xl w-full perspective-1000"
+        className="max-w-3xl w-full perspective-1000 z-10"
       >
-        <div className="relative bg-[#fdfaf2] p-12 md:p-20 rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-[#e8e2d2] min-h-[80vh] flex flex-col items-center">
+        <div className="relative bg-[#fdfaf2] p-12 md:p-20 rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#e8e2d2] min-h-[80vh] flex flex-col items-center">
           {/* Paper Texture Overlay */}
           <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/pinstriped-suit.png')]" />
           
@@ -97,7 +258,7 @@ export default function LetterSection() {
         </div>
 
         {/* Decorative Shadow for Unfold Effect */}
-        <div className="absolute -bottom-10 left-[10%] right-[10%] h-10 bg-black/10 blur-2xl rounded-full -z-10" />
+        <div className="absolute -bottom-10 left-[10%] right-[10%] h-10 bg-black/30 blur-2xl rounded-full -z-10" />
       </motion.div>
     </Section>
   );
