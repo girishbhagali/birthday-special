@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { Volume2, VolumeX } from "lucide-react";
@@ -31,7 +31,7 @@ export default function HeroSection() {
   };
 
   // Letter by letter animation variants
-  const sentence = {
+  const sentence: Variants = {
     hidden: { opacity: 1 },
     visible: {
       opacity: 1,
@@ -42,7 +42,7 @@ export default function HeroSection() {
     },
   };
 
-  const letter = {
+  const letter: Variants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,

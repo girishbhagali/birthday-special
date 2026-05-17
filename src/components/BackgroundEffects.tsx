@@ -19,7 +19,7 @@ export default function BackgroundEffects() {
     <div className="fixed inset-0 z-[-1] overflow-hidden bg-background pointer-events-none">
       {/* Primary Aura - Rose Gold */}
       <motion.div
-        style={{ y: y1, rotate, animated: true }}
+        style={{ y: y1, rotate }}
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.15, 0.25, 0.15],
@@ -34,7 +34,7 @@ export default function BackgroundEffects() {
 
       {/* Secondary Aura - Soft Lavender */}
       <motion.div
-        style={{ y: y2, rotate: -rotate, animated: true }}
+        style={{ y: y2, rotate: -rotate }}
         animate={{
           scale: [1.2, 1, 1.2],
           opacity: [0.1, 0.2, 0.1],
